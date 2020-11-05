@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-03T09:47:48+00:00
+# @Last modified time: 2020-11-05T17:55:12+00:00
 
 
 
@@ -50,7 +50,32 @@ class User extends Authenticatable
     public function roles()
     {
       //user belongs to many roles
-      return $this->belongsToMany('App\Models\Role');
+      return $this->belongsToMany('App\Models\Role', 'user_role');
     }
+
+    //checks if roles is an array
+    public function authorizeRoles($roles)
+    {
+      if (is_array($roles)) {
+        return $this->hasAnyRole($roles) ||
+                abort(401, 'This action is unauthorized.');
+      }
+      return $this->hasRole($roles) ||
+                abort(401, 'This is unauthorized.');
+    }
+
+    //checks whether a user has multiple roles
+    public function hasAnyRole($roles)
+    {
+      return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    //checks whether a user has one role
+    public function hasRole($role)
+    {
+      return null !== $this->roles()->where('name', $role)->first();
+    }
+
+
 
 }
