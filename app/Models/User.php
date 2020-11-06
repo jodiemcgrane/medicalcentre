@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-05T17:55:12+00:00
+# @Last modified time: 2020-11-06T11:03:39+00:00
 
 
 
@@ -57,11 +57,9 @@ class User extends Authenticatable
     public function authorizeRoles($roles)
     {
       if (is_array($roles)) {
-        return $this->hasAnyRole($roles) ||
-                abort(401, 'This action is unauthorized.');
+        return $this->hasAnyRole($roles);
       }
-      return $this->hasRole($roles) ||
-                abort(401, 'This is unauthorized.');
+      return $this->hasRole($roles);
     }
 
     //checks whether a user has multiple roles

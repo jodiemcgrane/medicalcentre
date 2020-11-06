@@ -1,10 +1,16 @@
 <?php
+# @Date:   2020-11-05T16:37:46+00:00
+# @Last modified time: 2020-11-06T10:57:18+00:00
+
+
+
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,8 +72,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->roles()->attach(Role::where('name', 'doctor')->first());
+
+        return $user;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-05T17:15:32+00:00
-# @Last modified time: 2020-11-05T17:26:14+00:00
+# @Last modified time: 2020-11-06T10:24:36+00:00
 
 
 
@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:admin');
     }
 
     /**
@@ -30,6 +32,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //$user = Auth::user();
+        //$user->authorizeRoles('admin');
+
         return view('admin.home');
     }
 }

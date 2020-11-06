@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-05T17:16:55+00:00
-# @Last modified time: 2020-11-05T17:26:39+00:00
+# @Last modified time: 2020-11-06T10:59:19+00:00
 
 
 
@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:admin,patient');
     }
 
     /**

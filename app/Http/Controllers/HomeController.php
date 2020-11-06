@@ -1,8 +1,14 @@
 <?php
+# @Date:   2020-11-05T16:37:46+00:00
+# @Last modified time: 2020-11-06T10:33:42+00:00
+
+
+
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,8 +27,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $user = Auth::user();
+        $homr = 'home';
+
+        if($user->hasRole('admin')){
+          $home = 'admin.home';
+        }
+        else if ($user->hasRole('doctor')) {
+          $home = 'doctor.home';
+        }
+        else if ($user->hasRole('patient')) {
+          $home = 'patient.home';
+        }
+        else if ($user->hasRole('visit')) {
+          $home = 'visit.home';
+        }
+        return redirect()->route($home);
     }
 }
