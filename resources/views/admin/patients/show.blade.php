@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="card">
                 <div class="card-header">
-                    Doctor: {{ $doctor->name }}
+                    Doctor: {{ $patient->name }}
                 </div>
 
                 <div class="card-body">
@@ -14,30 +14,38 @@
                         <tbody>
                             <tr>
                                 <td>Name</td>
-                                <td>{{ $doctor->name }}</td>
+                                <td>{{ $patient->name }}</td>
                             </tr>
                             <tr>
                                 <td>Address</td>
-                                <td>{{ $doctor->address }}</td>
+                                <td>{{ $patient->address }}</td>
                             </tr>
                             <tr>
                                 <td>Phone</td>
-                                <td>{{ $doctor->phone }}</td>
+                                <td>{{ $patient->phone }}</td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{{ $doctor->email }}</td>
+                                <td>{{ $patient->email }}</td>
                             </tr>
                             <tr>
-                                <td>Date Started</td>
-                                <td>{{ $doctor->date_started }}</td>
+                                <td>Insurance</td>
+                                <td>{{ $patient->insurance }}</td>
+                            </tr>
+                            <tr>
+                                <td>Company</td>
+                                <td>{{ $patient->insurance_company }}</td>
+                            </tr>
+                            <tr>
+                                <td>Policy No.</td>
+                                <td>{{ $patient->policy_number }}</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <a href="{{ route('admin.doctors.index') }}" class="btn btn-default">Back</a>
-                    <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning">Edit</a>
-                    <form style="display:inline-block" method="POST" action="{{ route('admin.doctors.destroy', $doctor->id) }}">
+                    <a href="{{ route('admin.patients.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.patients.edit', $patient->id) }}" class="btn btn-warning">Edit</a>
+                    <form style="display:inline-block" method="POST" action="{{ route('admin.patients.destroy', $patient->id) }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="form-control btn btn-danger">Delete</a>

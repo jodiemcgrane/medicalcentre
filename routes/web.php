@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-13T11:56:16+00:00
+# @Last modified time: 2020-11-13T18:27:20+00:00
 
 
 
@@ -8,11 +8,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
-use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
+use App\Http\Controllers\Admin\PatientController as AdminPatientController;
 
 use App\Http\Controllers\Doctor\HomeController as DoctorHomeController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::get('/doctor/home', [DoctorHomeController::class, 'index'])->name('doctor
 Route::get('/patient/home', [PatientHomeController::class, 'index'])->name('patient.home');
 Route::get('/visit/home', [VisitHomeController::class, 'index'])->name('visit.home');
 
-//admin routes
+//admin routes for doctor
 Route::get('/admin/doctors', [AdminDoctorController::class, 'index'])->name('admin.doctors.index');
 Route::get('/admin/doctors/create', [AdminDoctorController::class, 'create'])->name('admin.doctors.create');
 Route::get('/admin/doctors/{id}', [AdminDoctorController::class, 'show'])->name('admin.doctors.show');
@@ -46,7 +47,18 @@ Route::get('/admin/doctors/{id}/edit', [AdminDoctorController::class, 'edit'])->
 Route::put('/admin/doctors/{id}', [AdminDoctorController::class, 'update'])->name('admin.doctors.update');
 Route::delete('/admin/doctors/{id}', [AdminDoctorController::class, 'destroy'])->name('admin.doctors.destroy');
 
-//doctor routes
+//admin routes for patient
+Route::get('/admin/patients', [AdminPatientController::class, 'index'])->name('admin.patients.index');
+Route::get('/admin/patients/create', [AdminPatientController::class, 'create'])->name('admin.patients.create');
+Route::get('/admin/patients/{id}', [AdminPatientController::class, 'show'])->name('admin.patients.show');
+Route::post('/admin/patients/store', [AdminPatientController::class, 'store'])->name('admin.patients.store');
+Route::get('/admin/patients/{id}/edit', [AdminPatientController::class, 'edit'])->name('admin.patients.edit');
+Route::put('/admin/patients/{id}', [AdminPatientController::class, 'update'])->name('admin.patients.update');
+Route::delete('/admin/patients/{id}', [AdminPatientController::class, 'destroy'])->name('admin.patients.destroy');
+
+//admin routes for visit
+
+//doctor user routes
 Route::get('/doctor/doctors/', [DoctorDoctorController::class, 'index'])->name('doctor.doctors.index');
 Route::get('/doctor/doctors/{id}', [DoctorDoctorController::class, 'show'])->name('doctor.doctors.show');
 

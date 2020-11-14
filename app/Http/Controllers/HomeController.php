@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-05T16:37:46+00:00
-# @Last modified time: 2020-11-06T10:33:42+00:00
+# @Last modified time: 2020-11-13T15:52:53+00:00
 
 
 
@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $homr = 'home';
+        $home = 'home';
 
         if($user->hasRole('admin')){
           $home = 'admin.home';
