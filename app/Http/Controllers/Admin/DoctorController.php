@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-11T14:59:27+00:00
-# @Last modified time: 2020-11-13T12:08:21+00:00
+# @Last modified time: 2020-11-19T16:41:01+00:00
 
 
 
@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Doctor;
 
 class DoctorController extends Controller
@@ -65,13 +66,15 @@ class DoctorController extends Controller
           'email' => 'required|max:191',
           'date_started' => 'required|date',
         ]);
-        //if all the above passes, create a new doctor
-        $doctor = new Doctor();
 
-        $doctor->name = $request->input('name');
-        $doctor->address = $request->input('address');
-        $doctor->phone = $request->input('phone');
-        $doctor->email = $request->input('email');
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->email = $request->input('email');
+
+        $doctor = new Doctor();
+        $doctor->user_id = $user->id;
         $doctor->date_started = $request->input('date_started');
         $doctor->save();
 

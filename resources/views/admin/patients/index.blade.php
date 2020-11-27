@@ -24,19 +24,18 @@
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Insurance</th>
-                            <th>Company</th>
                             <th>Policy No.</th>
                             <th>Actions</th>
                         </thead>
                         <tbody>
                             @foreach ($patients as $patient)
                             <tr data-id="{{ $patient->id }}">
-                                <td>{{ $patient->name }}</td>
-                                <td>{{ $patient->address }}</td>
-                                <td>{{ $patient->phone }}</td>
-                                <td>{{ $patient->email }}</td>
-                                <td>{{ $patient->insurance }}</td>
-                                <td>{{ $patient->insurance_company }}</td>
+                                <td>{{ $patient->user->name }}</td>
+                                <td>{{ $patient->user->address }}</td>
+                                <td>{{ $patient->user->phone }}</td>
+                                <td>{{ $patient->user->email }}</td>
+
+                                <td>{{ $patient->insurance_id }}</td>
                                 <td>{{ $patient->policy_number }}</td>
                                 <td>
                                     <a href="{{ route('admin.patients.show', $patient->id) }}" class="btn btn-primary">View</a>

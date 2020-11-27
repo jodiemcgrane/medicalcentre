@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-14T11:28:56+00:00
+# @Last modified time: 2020-11-17T18:10:37+00:00
 
 
 
@@ -8,13 +8,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
+//admin user
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Admin\PatientController as AdminPatientController;
 use App\Http\Controllers\Admin\VisitController as AdminVisitController;
 
+//doctor user
 use App\Http\Controllers\Doctor\HomeController as DoctorHomeController;
 use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+
+//patient user
+use App\Http\Controllers\Patient\HomeController as PatientHomeController;
 
 /*
 |--------------------------------------------------------------------------

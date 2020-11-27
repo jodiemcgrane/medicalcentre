@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-05T16:37:46+00:00
-# @Last modified time: 2020-11-06T10:57:18+00:00
+# @Last modified time: 2020-11-20T16:08:29+00:00
 
 
 
@@ -78,7 +78,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->roles()->attach(Role::where('name', 'doctor')->first());
+        $user->roles()->attach(Role::where('name', 'user')->first());
 
         return $user;
     }

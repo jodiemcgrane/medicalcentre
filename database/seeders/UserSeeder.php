@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-03T10:04:57+00:00
-# @Last modified time: 2020-11-05T16:02:45+00:00
+# @Last modified time: 2020-11-20T12:14:23+00:00
 
 
 
@@ -11,6 +11,7 @@ use Illuminate\Database\Seeder;
 use Hash;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Patient;
 
 class UserSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
         //get the admin role and store it, attach this user which is admin to the admin role
         //use first method to retrieve as one single role and not an array inace weve more than one admin role user
         $role_admin = Role::where('name', 'admin')->first();
+        $role_user = Role::where('name', 'user')->first();
         $role_doctor = Role::where('name', 'doctor')->first();
         $role_patient = Role::where('name', 'patient')->first();
         $role_visit = Role::where('name', 'visit')->first();
@@ -70,5 +72,50 @@ class UserSeeder extends Seeder
         $visit->password = Hash::make('secret');
         $visit->save();
         $visit->roles()->attach($role_visit);
+
+        $user = new User();
+        $user->name = 'Amy Doyle';
+        $user->address = 'Marley Park';
+        $user->phone = '085 2587 123';
+        $user->email = 'amy@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_user);
+
+        $patient = new Patient();
+        $patient->insurance_id = $insurance_company = 1;
+        $patient->policy_number = '222222222222A';
+        $patient->user_id = $user->id;
+        $patient->save();
+
+        $user = new User();
+        $user->name = 'Mary Jones';
+        $user->address = 'Citywest';
+        $user->phone = '089 324 1567';
+        $user->email = 'mary@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_user);
+
+        $patient = new Patient();
+        $patient->insurance_id = $insurance_company = 3;
+        $patient->policy_number = '333333333333B';
+        $patient->user_id = $user->id;
+        $patient->save();
+
+        $user = new User();
+        $user->name = 'Phil Evans';
+        $user->address = 'Rathfarnham';
+        $user->phone = '085 6754 342';
+        $user->email = 'phil@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_user);
+
+        $patient = new Patient();
+        $patient->insurance_id = $insurance_company = 1;
+        $patient->policy_number = '555555555555W';
+        $patient->user_id = $user->id;
+        $patient->save();
     }
 }

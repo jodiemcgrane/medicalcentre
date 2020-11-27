@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-06T11:03:39+00:00
+# @Last modified time: 2020-11-20T10:29:16+00:00
 
 
 
@@ -45,6 +45,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function doctor()
+    {
+      return $this->hasOne('App\Models\Doctor');
+    }
+
+    public function patient()
+    {
+      return $this->hasOne('App\Models\Patient');
+    }
 
 
     public function roles()

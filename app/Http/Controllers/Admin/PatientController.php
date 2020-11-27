@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:38:39+00:00
-# @Last modified time: 2020-11-14T11:08:06+00:00
+# @Last modified time: 2020-11-24T09:57:02+00:00
 
 
 
@@ -9,7 +9,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Hash;
+use App\Models\Role;
 use App\Models\Patient;
+use App\Models\User;
+use App\Models\InsuranceCompany;
 
 class PatientController extends Controller
 {
@@ -33,11 +37,12 @@ class PatientController extends Controller
     public function index()
     {
       $patients = Patient::all();
-      //returning index view
+      //$patients = Role::where('name', 'patient')->first()->users()->get();
       return view('admin.patients.index', [
-        //this view will have a patients variable
         'patients' => $patients
       ]);
+
+
     }
 
     /**
@@ -47,7 +52,14 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('admin.patients.create');
+      $users = User::all();
+      $insurance_companies = InsuranceCompany::all();
+      return view('admin.patients.create', [
+        'users' => $users,
+        'insurance_companies' => $insurance_companies
+      ]);
+
+
     }
 
     /**
@@ -64,21 +76,38 @@ class PatientController extends Controller
             'phone' => 'required|numeric|min:7',
             'email' => 'required|max:191',
 
-            'insurance' => 'required|max:191',
-            'insurance_company' => 'required|max:191',
+            'insurance_id' => 'required',
             'policy_number' => 'required|alpha_num|size:13|unique:patients,policy_number',
         ]);
 
-        $patient = new Patient();
-        $patient->name = $request->input('name');
-        $patient->address = $request->input('address');
-        $patient->phone = $request->input('phone');
-        $patient->email = $request->input('email');
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->email = $request->input('email');
+        $user->password = Hash::make('secret');
+        $user->save();
 
-        $patient->insurance = $request->input('insurance');
-        $patient->insurance_company = $request->input('insurance_company');
+        $patient = new Patient();
+        $patient->insurance_id = $request->input('insurance_id');
         $patient->policy_number = $request->input('policy_number');
+        $patient->user_id = $user->id;
         $patient->save();
+
+        //
+        // $user = new User();
+        // $user->name = $request->input('name');
+        // $user->address = $request->input('address');
+        // $user->phone = $request->input('phone');
+        // $user->email = $request->input('email');
+        // $user->save();
+        //
+        // $patient = new Patient();
+        // $patient->user_id = $user->id;
+        // $patient->insurance = $request->input('insurance');
+        // $patient->insurance_company = $request->input('insurance_company');
+        // $patient->policy_number = $request->input('policy_number');
+        // $patient->save();
 
         return redirect()->route('admin.patients.index');
     }
@@ -107,9 +136,15 @@ class PatientController extends Controller
     public function edit($id)
     {
       $patient = Patient::findOrFail($id);
+      //$user = User::all();
+      $insurance_companies = InsuranceCompany::all();
+
+    //  dd($insurance_companies);
 
       return view('admin.patients.edit', [
-        'patient' => $patient
+        //'user' => $user,
+        'patient' => $patient,
+        'insurance_companies' => $insurance_companies
       ]);
     }
 
@@ -128,19 +163,19 @@ class PatientController extends Controller
           'phone' => 'required|numeric|min:7',
           'email' => 'required|max:191',
 
-          'insurance' => 'required|max:191',
-          'insurance_company' => 'required|max:191',
+          'insurance_id' => 'required',
           'policy_number' => 'required|alpha_num|size:13|unique:patients,policy_number,' . $id,
       ]);
 
-      $patient = Patient::findOrFail($id);
-      $patient->name = $request->input('name');
-      $patient->address = $request->input('address');
-      $patient->phone = $request->input('phone');
-      $patient->email = $request->input('email');
+      $user = User::findOrFail($id);
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
 
-      $patient->insurance = $request->input('insurance');
-      $patient->insurance_company = $request->input('insurance_company');
+      $patient = Patient::findOrFail($id);
+      $patient->user_id = $user->id;
+      $patient->insurance_id = $request->input('insurance_id');
       $patient->policy_number = $request->input('policy_number');
       $patient->save();
 
