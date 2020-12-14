@@ -14,19 +14,19 @@
                         <tbody>
                             <tr>
                                 <td>Name</td>
-                                <td>{{ $doctor->name }}</td>
+                                <td>{{ $doctor->user->name }}</td>
                             </tr>
                             <tr>
                                 <td>Address</td>
-                                <td>{{ $doctor->address }}</td>
+                                <td>{{ $doctor->user->address }}</td>
                             </tr>
                             <tr>
                                 <td>Phone</td>
-                                <td>{{ $doctor->phone }}</td>
+                                <td>{{ $doctor->user->phone }}</td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{{ $doctor->email }}</td>
+                                <td>{{ $doctor->user->email }}</td>
                             </tr>
                             <tr>
                                 <td>Date Started</td>

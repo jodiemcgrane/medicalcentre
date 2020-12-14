@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="date_started">Date Started</label>
-                            <input type="text" class="form-control" id="date_started" name="date_started" value="{{ old('date_started') }}" />
+                            <input type="date" class="form-control" id="date_started" name="date_started" value="{{ old('date_started') }}" />
                         </div>
 
                         <div class="float-right">

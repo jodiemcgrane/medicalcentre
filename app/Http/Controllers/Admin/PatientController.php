@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:38:39+00:00
-# @Last modified time: 2020-11-24T09:57:02+00:00
+# @Last modified time: 2020-12-14T17:30:34+00:00
 
 
 
@@ -53,10 +53,10 @@ class PatientController extends Controller
     public function create()
     {
       $users = User::all();
-      $insurance_companies = InsuranceCompany::all();
+      $insuranceCompanies = InsuranceCompany::all();
       return view('admin.patients.create', [
         'users' => $users,
-        'insurance_companies' => $insurance_companies
+        'insuranceCompanies' => $insuranceCompanies
       ]);
 
 
@@ -137,14 +137,14 @@ class PatientController extends Controller
     {
       $patient = Patient::findOrFail($id);
       //$user = User::all();
-      $insurance_companies = InsuranceCompany::all();
+      $insuranceCompanies = InsuranceCompany::all();
 
     //  dd($insurance_companies);
 
       return view('admin.patients.edit', [
         //'user' => $user,
         'patient' => $patient,
-        'insurance_companies' => $insurance_companies
+        'insuranceCompanies' => $insuranceCompanies
       ]);
     }
 

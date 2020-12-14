@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-20T12:11:29+00:00
+# @Last modified time: 2020-12-14T18:14:39+00:00
 
 
 
@@ -21,6 +21,5 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(InsuranceCompanySeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PatientSeeder::class);
     }
 }

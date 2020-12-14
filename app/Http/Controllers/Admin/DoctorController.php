@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-11T14:59:27+00:00
-# @Last modified time: 2020-11-19T16:41:01+00:00
+# @Last modified time: 2020-12-14T18:12:52+00:00
 
 
 
@@ -9,8 +9,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Hash;
+use App\Models\Role;
 use App\Models\Doctor;
+use App\Models\User;
+
 
 class DoctorController extends Controller
 {
@@ -48,7 +51,10 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('admin.doctors.create');
+        $users = User::all();
+        return view('admin.doctors.create', [
+          'users' => $users
+        ]);
     }
 
     /**
@@ -64,7 +70,8 @@ class DoctorController extends Controller
           'address' => 'required|max:191',
           'phone' => 'required|numeric|min:7',
           'email' => 'required|max:191',
-          'date_started' => 'required|date',
+
+          'date_started' => 'required|date_format:Y-m-d',
         ]);
 
         $user = new User();
@@ -72,6 +79,8 @@ class DoctorController extends Controller
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->email = $request->input('email');
+        $user->password = Hash::make('secret');
+        $user->save();
 
         $doctor = new Doctor();
         $doctor->user_id = $user->id;
@@ -127,15 +136,18 @@ class DoctorController extends Controller
         'address' => 'required|max:191',
         'phone' => 'required|numeric|min:7',
         'email' => 'required|max:191',
-        'date_started' => 'required|date',
+
+        'date_started' => 'required|date_format:Y-m-d',
       ]);
 
-      //getting the doctor by id that we are trying to edit
+      $user = User::findOrFail($id);
+      $user->name = $request->input('name');
+      $user->address = $request->input('address');
+      $user->phone = $request->input('phone');
+      $user->email = $request->input('email');
+
       $doctor = Doctor::findOrFail($id);
-      $doctor->name = $request->input('name');
-      $doctor->address = $request->input('address');
-      $doctor->phone = $request->input('phone');
-      $doctor->email = $request->input('email');
+      $doctor->user_id = $user->id;
       $doctor->date_started = $request->input('date_started');
       $doctor->save();
 
