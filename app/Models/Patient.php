@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:34:55+00:00
-# @Last modified time: 2020-11-24T09:49:56+00:00
+# @Last modified time: 2020-12-15T20:51:24+00:00
 
 
 
@@ -22,5 +22,10 @@ class Patient extends Model
     public function insuranceCompany()
     {
       return $this->belongsTo('App\Models\InsuranceCompany', 'insurance_id');
+    }
+
+    public function visits()
+    {
+      return $this->hasMany('App\Models\Visit', 'visit_id');
     }
 }
