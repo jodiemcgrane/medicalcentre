@@ -23,24 +23,38 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
+                            <label for="patient">Patient</label>
+                            <select name="patient_id">
+                                @foreach ($patients as $patient)
+                                <option value="{{ $patient->id }}" {{ (old('patient_id') == $patient->id) ? "selected" : "" }}>{{ $patient->user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="doctor">Doctor</label>
+                            <select name="doctor_id">
+                                @foreach ($doctors as $doctor)
+                                <option value="{{ $doctor->id }}" {{ (old('doctor_id') == $doctor->id) ? "selected" : "" }}>{{ $doctor->user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="text" class="form-control" id="date" name="date" value="{{ old('date') }}" />
+                            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" />
                         </div>
                         <div class="form-group">
                             <label for="time">Time</label>
-                            <input type="text" class="form-control" id="time" name="time" value="{{ old('time') }}" />
+                            <input type="time" class="form-control" id="time" name="time" value="{{ old('time') }}" />
                         </div>
                         <div class="form-group">
-                            <label for="duration">Duration</label>
+                            <label for="duration">Duration (minutes)</label>
                             <input type="text" class="form-control" id="duration" name="duration" value="{{ old('duration') }}" />
                         </div>
                         <div class="form-group">
                             <label for="cost">Cost</label>
                             <input type="text" class="form-control" id="cost" name="cost" value="{{ old('cost') }}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor">Doctor</label>
-                            <input type="text" class="form-control" id="doctor" name="doctor" value="{{ old('doctor') }}" />
                         </div>
 
                         <div class="float-right">

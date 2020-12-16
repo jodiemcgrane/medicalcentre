@@ -19,21 +19,23 @@
                     @else
                     <table id="table-visits" class="table table-hover">
                         <thead>
+                            <th>Patient</th>
+                            <th>Doctor</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Duration</th>
                             <th>Cost</th>
-                            <th>Doctor</th>
                             <th>Actions</th>
                         </thead>
                         <tbody>
                             @foreach ($visits as $visit)
                             <tr data-id="{{ $visit->id }}">
+                                <td>{{ $visit->patient->user->name }}</td>
+                                <td>{{ $visit->doctor->user->name }}</td>
                                 <td>{{ $visit->date }}</td>
                                 <td>{{ $visit->time }}</td>
                                 <td>{{ $visit->duration }}</td>
                                 <td>{{ $visit->cost }}</td>
-                                <td>{{ $visit->doctor }}</td>
                                 <td>
                                     <a href="{{ route('admin.visits.show', $visit->id) }}" class="btn btn-primary">View</a>
                                     <a href="{{ route('admin.visits.edit', $visit->id) }}" class="btn btn-warning">Edit</a>

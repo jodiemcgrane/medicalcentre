@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2020-11-14T13:05:28+00:00
+# @Last modified time: 2020-12-16T10:44:27+00:00
 
 
 
@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visit;
+use App\Models\Patient;
+use App\Models\Doctor;
 
 class VisitController extends Controller
 {
@@ -47,7 +49,14 @@ class VisitController extends Controller
      */
     public function create()
     {
-        return view('admin.visits.create');
+        $visits = Visit::all();
+        $patients = Patient::all();
+        $doctors = Doctor::all();
+        return view('admin.visits.create', [
+          'vistis' => $visits,
+          'patients' => $patients,
+          'doctors' => $doctors
+        ]);
     }
 
     /**
@@ -59,19 +68,24 @@ class VisitController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-        'date' => 'required|date',
+
+        'patient_id' => 'required',
+        'doctor_id' => 'required',
+
+        'date' => 'required|date_format:Y-m-d',
         'time' => 'required|date_format:H:i',
         'duration'=> 'required|max:191',
         'cost' => 'required|numeric|min:0',
-        'doctor' => 'required|max:191',
       ]);
 
       $visit = new Visit();
+      $visit->patient_id = $request->input('patient_id');
+      $visit->doctor_id = $request->input('doctor_id');
+
       $visit->date = $request->input('date');
       $visit->time = $request->input('time');
       $visit->duration = $request->input('duration');
       $visit->cost = $request->input('cost');
-      $visit->doctor = $request->input('doctor');
       $visit->save();
 
       return redirect()->route('admin.visits.index');
@@ -83,6 +97,7 @@ class VisitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
       $visit = Visit::findOrFail($id);
@@ -101,9 +116,13 @@ class VisitController extends Controller
     public function edit($id)
     {
       $visit = Visit::findOrFail($id);
+      $patients = Patient::all();
+      $doctors = Doctor::all();
 
       return view('admin.visits.edit', [
-        'visit' => $visit
+        'visit' => $visit,
+        'patients' => $patients,
+        'doctors' => $doctors
       ]);
     }
 
@@ -117,19 +136,22 @@ class VisitController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'date' => 'required|date',
-          'time' => 'required|date_format:H:i', 
+          'patient_id' => 'required',
+          'doctor_id' => 'required',
+          'date' => 'required|date_format:Y-m-d',
+          'time' => 'required|date_format:H:i',
           'duration'=> 'required|max:191',
           'cost' => 'required|numeric|min:0',
-          'doctor' => 'required|max:191',
         ]);
 
         $visit = Visit::findOrFail($id);
+        $visit->patient_id = $request->input('patient_id');
+        $visit->doctor_id = $request->input('doctor_id');
+
         $visit->date = $request->input('date');
         $visit->time = $request->input('time');
         $visit->duration = $request->input('duration');
         $visit->cost = $request->input('cost');
-        $visit->doctor = $request->input('doctor');
         $visit->save();
 
         return redirect()->route('admin.visits.index');
@@ -141,6 +163,7 @@ class VisitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $visit = Visit::findOrFail($id);

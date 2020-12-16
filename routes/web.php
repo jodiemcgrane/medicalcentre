@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-11-17T18:10:37+00:00
+# @Last modified time: 2020-12-16T10:19:09+00:00
 
 
 
@@ -64,7 +64,7 @@ Route::delete('/admin/patients/{id}', [AdminPatientController::class, 'destroy']
 
 //admin routes for visit
 Route::get('/admin/visits', [AdminVisitController::class, 'index'])->name('admin.visits.index');
-Route::get('/admin/viits/create', [AdminVisitController::class, 'create'])->name('admin.visits.create');
+Route::get('/admin/visits/create', [AdminVisitController::class, 'create'])->name('admin.visits.create');
 Route::get('/admin/visits/{id}', [AdminVisitController::class, 'show'])->name('admin.visits.show');
 Route::post('/admin/visits/store', [AdminVisitController::class, 'store'])->name('admin.visits.store');
 Route::get('/admin/visits/{id}/edit', [AdminVisitController::class, 'edit'])->name('admin.visits.edit');

@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:38:39+00:00
-# @Last modified time: 2020-12-14T17:30:34+00:00
+# @Last modified time: 2020-12-16T10:06:14+00:00
 
 
 
@@ -41,8 +41,6 @@ class PatientController extends Controller
       return view('admin.patients.index', [
         'patients' => $patients
       ]);
-
-
     }
 
     /**
@@ -118,6 +116,7 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
       $patient = Patient::findOrFail($id);
@@ -188,6 +187,7 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);

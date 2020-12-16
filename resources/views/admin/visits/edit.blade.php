@@ -24,12 +24,30 @@
                         <input type="hidden" name="_method" value="PUT">
 
                         <div class="form-group">
+                            <label for="patient">Patient</label>
+                            <select name="patient_id">
+                                @foreach ($patients as $patient)
+                                <option value="{{ $patient->id }}" {{ (old('patient_id', $patient->user->name) == $visit->patient->user->name) ? "selected" : "" }}>{{ $patient->user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="doctor">Doctor</label>
+                            <select name="doctor_id">
+                                @foreach ($doctors as $doctor)
+                                <option value="{{ $doctor->id }}" {{ (old('doctor_id', $doctor->user->name) == $visit->doctor->user->name) ? "selected" : "" }}>{{ $doctor->user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="text" class="form-control" id="date" name="date" value="{{ old('date', $visit->date) }}" />
+                            <input type="date" class="form-control" id="date" name="date" value="{{ old('date', $visit->date) }}" />
                         </div>
                         <div class="form-group">
                             <label for="time">Time</label>
-                            <input type="text" class="form-control" id="time" name="time" value="{{ old('time', $visit->time) }}" />
+                            <input type="time" class="form-control" id="time" name="time" value="{{ old('time', $visit->time) }}" />
                         </div>
                         <div class="form-group">
                             <label for="duration">Duration</label>
@@ -38,10 +56,6 @@
                         <div class="form-group">
                             <label for="cost">Cost</label>
                             <input type="text" class="form-control" id="cost" name="cost" value="{{ old('cost', $visit->cost) }}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor">Doctor</label>
-                            <input type="text" class="form-control" id="doctor" name="doctor" value="{{ old('doctor', $visit->doctor) }}" />
                         </div>
 
                         <div class="float-right">
