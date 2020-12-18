@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-12-16T10:19:09+00:00
+# @Last modified time: 2020-12-18T14:04:17+00:00
 
 
 
@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\VisitController as AdminVisitController;
 
 //doctor user
 use App\Http\Controllers\Doctor\HomeController as DoctorHomeController;
-use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+use App\Http\Controllers\Doctor\VisitController as DoctorVisitController;
 
 //patient user
 use App\Http\Controllers\Patient\HomeController as PatientHomeController;
@@ -72,9 +72,13 @@ Route::put('/admin/visits/{id}', [AdminVisitController::class, 'update'])->name(
 Route::delete('/admin/visits/{id}', [AdminVisitController::class, 'destroy'])->name('admin.visits.destroy');
 
 //doctor user routes
-Route::get('/doctor/doctors/', [DoctorDoctorController::class, 'index'])->name('doctor.doctors.index');
-Route::get('/doctor/doctors/{id}', [DoctorDoctorController::class, 'show'])->name('doctor.doctors.show');
+Route::get('/doctor/visits', [DoctorVisitController::class, 'index'])->name('doctor.visits.index');
+Route::get('/doctor/visits/create', [DoctorVisitController::class, 'create'])->name('doctor.visits.create');
+Route::get('/doctor/visits/{id}', [DoctorVisitController::class, 'show'])->name('doctor.visits.show');
+Route::post('/doctor/visits/store', [DoctorVisitController::class, 'store'])->name('doctor.visits.store');
+Route::get('/doctor/visits/{id}/edit', [DoctorVisitController::class, 'edit'])->name('doctor.visits.edit');
+Route::put('/doctor/visits/{id}', [DoctorVisitController::class, 'update'])->name('doctor.visits.update');
+Route::delete('/doctor/visits/{id}', [DoctorVisitController::class, 'destroy'])->name('doctor.visits.destroy');
 
-//patient routes
 
-//secretary routes i.e visit user
+//patient user routes

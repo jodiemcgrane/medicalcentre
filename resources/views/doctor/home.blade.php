@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.doctor')
 
 @section('content')
 <div class="container">
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in as a Doctor user.
+                    You are Logged in as a Doctor user. <a href="{{ route('doctor.visits.index') }}"> Visits </a>
                 </div>
             </div>
         </div>

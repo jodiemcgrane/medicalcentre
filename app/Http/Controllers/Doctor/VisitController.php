@@ -1,17 +1,18 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2020-12-18T14:12:17+00:00
+# @Last modified time: 2020-12-18T15:02:41+00:00
 
 
 
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\Patient;
 use App\Models\Doctor;
+use Auth;
 
 class VisitController extends Controller
 {
@@ -24,7 +25,7 @@ class VisitController extends Controller
   public function __construct()
   {
       $this->middleware('auth');
-      $this->middleware('role:admin');
+      $this->middleware('role:doctor');
   }
 
     /**
@@ -34,9 +35,14 @@ class VisitController extends Controller
      */
     public function index()
     {
-      $visits = Visit::all();
+      //the specific doctor user can view their visits
+      $user = Auth::user();
+      $visits = $user->doctor->visits()->orderBy('date', 'asc')->paginate(8);
+
+      //$visits = Visit::all();
+
       //returning index view
-      return view('admin.visits.index', [
+      return view('doctor.visits.index', [
         //this view will have a visits variable
         'visits' => $visits
       ]);
@@ -47,12 +53,14 @@ class VisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         $visits = Visit::all();
         $patients = Patient::all();
         $doctors = Doctor::all();
-        return view('admin.visits.create', [
+
+        return view('doctor.visits.create', [
           'vistis' => $visits,
           'patients' => $patients,
           'doctors' => $doctors
@@ -65,6 +73,7 @@ class VisitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
       $request->validate([
@@ -86,9 +95,10 @@ class VisitController extends Controller
       $visit->time = $request->input('time');
       $visit->duration = $request->input('duration');
       $visit->cost = $request->input('cost');
+      //$visit->doctor_id = Auth::id();
       $visit->save();
 
-      return redirect()->route('admin.visits.index');
+      return redirect()->route('doctor.visits.index');
     }
 
     /**
@@ -102,7 +112,7 @@ class VisitController extends Controller
     {
       $visit = Visit::findOrFail($id);
 
-      return view('admin.visits.show', [
+      return view('doctor.visits.show', [
         'visit' => $visit
       ]);
     }
@@ -119,7 +129,7 @@ class VisitController extends Controller
       $patients = Patient::all();
       $doctors = Doctor::all();
 
-      return view('admin.visits.edit', [
+      return view('doctor.visits.edit', [
         'visit' => $visit,
         'patients' => $patients,
         'doctors' => $doctors
@@ -154,7 +164,7 @@ class VisitController extends Controller
         $visit->cost = $request->input('cost');
         $visit->save();
 
-        return redirect()->route('admin.visits.index');
+        return redirect()->route('doctor.visits.index');
     }
 
     /**
@@ -169,6 +179,6 @@ class VisitController extends Controller
         $visit = Visit::findOrFail($id);
         $visit->delete();
 
-        return redirect()->route('admin.visits.index');
+        return redirect()->route('doctor.visits.index');
     }
 }

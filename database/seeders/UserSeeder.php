@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-03T10:04:57+00:00
-# @Last modified time: 2020-12-14T18:42:53+00:00
+# @Last modified time: 2020-12-18T13:28:48+00:00
 
 
 
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
         //admin user
         $admin = new User();
         $admin->name = 'Jodie Mcgrane';
-        $admin->address = '2 Meadow Park Firhouse';
+        $admin->address = 'BallyCullen';
         $admin->phone = '085 442 8745';
         $admin->email = 'admin@medicalcentre.ie';
         $admin->password = Hash::make('secret');
@@ -89,9 +89,39 @@ class UserSeeder extends Seeder
         $patient->user_id = $user->id;
         $patient->save();
 
+        $user = new User();
+        $user->name = 'Lana Anderson';
+        $user->address = 'Dundrum';
+        $user->phone = '089 6544 322';
+        $user->email = 'lana@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_patient);
+
+        $patient = new Patient();
+        $patient->insurance_id = $insurance_company = 2;
+        $patient->policy_number = '777777777777R';
+        $patient->user_id = $user->id;
+        $patient->save();
+
+        $user = new User();
+        $user->name = 'Susan Boyle';
+        $user->address = 'Sandyford';
+        $user->phone = '089 7854 564';
+        $user->email = 'susan@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_patient);
+
+        $patient = new Patient();
+        $patient->insurance_id = $insurance_company = 3;
+        $patient->policy_number = '175846523289K';
+        $patient->user_id = $user->id;
+        $patient->save();
+
         //doctor users
         $user = new User();
-        $user->name = 'Elle Lyons';
+        $user->name = 'Dr Elle Lyons';
         $user->address = 'Springfield';
         $user->phone = '089 8596 675';
         $user->email = 'elle@medicalcentre.ie';
@@ -102,6 +132,20 @@ class UserSeeder extends Seeder
         $doctor = new Doctor();
         $doctor->user_id = $user->id;
         $doctor->date_started = '1999-11-03';
+        $doctor->save();
+
+        $user = new User();
+        $user->name = 'Dr Patrick Noonan';
+        $user->address = 'Old Bawn';
+        $user->phone = '085 7854 963';
+        $user->email = 'patrick@medicalcentre.ie';
+        $user->password = Hash::make('secret');
+        $user->save();
+        $user->roles()->attach($role_doctor);
+
+        $doctor = new Doctor();
+        $doctor->user_id = $user->id;
+        $doctor->date_started = '2003-01-09';
         $doctor->save();
     }
 }
