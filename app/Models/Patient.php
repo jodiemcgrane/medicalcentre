@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:34:55+00:00
-# @Last modified time: 2020-12-15T20:51:24+00:00
+# @Last modified time: 2020-12-19T15:13:52+00:00
 
 
 
@@ -26,6 +26,6 @@ class Patient extends Model
 
     public function visits()
     {
-      return $this->hasMany('App\Models\Visit', 'visit_id');
+      return $this->hasMany('App\Models\Visit', 'patient_id');
     }
 }

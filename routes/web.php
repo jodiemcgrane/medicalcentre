@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-02T15:35:08+00:00
-# @Last modified time: 2020-12-18T14:04:17+00:00
+# @Last modified time: 2020-12-19T15:14:32+00:00
 
 
 
@@ -20,6 +20,7 @@ use App\Http\Controllers\Doctor\VisitController as DoctorVisitController;
 
 //patient user
 use App\Http\Controllers\Patient\HomeController as PatientHomeController;
+use App\Http\Controllers\Patient\VisitController as PatientVisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,3 +83,10 @@ Route::delete('/doctor/visits/{id}', [DoctorVisitController::class, 'destroy'])-
 
 
 //patient user routes
+Route::get('/patient/visits', [PatientVisitController::class, 'index'])->name('patient.visits.index');
+//Route::get('/doctor/visits/create', [PatientVisitController::class, 'create'])->name('doctor.visits.create');
+Route::get('/patient/visits/{id}', [PatientVisitController::class, 'show'])->name('patient.visits.show');
+//Route::post('/doctor/visits/store', [PatientVisitController::class, 'store'])->name('doctor.visits.store');
+//Route::get('/doctor/visits/{id}/edit', [PatientVisitController::class, 'edit'])->name('doctor.visits.edit');
+//Route::put('/doctor/visits/{id}', [PatientVisitController::class, 'update'])->name('doctor.visits.update');
+Route::delete('/patient/visits/{id}', [PatientVisitController::class, 'destroy'])->name('patient.visits.destroy');

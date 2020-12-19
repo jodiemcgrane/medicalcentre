@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.patient')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    Welcome {{ Auth::user()->name }}.
                     You are logged in as a Patient user.
                 </div>
             </div>

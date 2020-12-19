@@ -13,7 +13,7 @@
                         {{ session('status') }}
                     </div>
                     @endif
-
+                    Welcome {{ Auth::user()->name }}.
                     You are logged in as an Administrator user.
                 </div>
             </div>
