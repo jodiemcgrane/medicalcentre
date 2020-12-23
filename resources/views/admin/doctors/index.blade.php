@@ -33,7 +33,7 @@
                                 <td>{{ $doctor->user->address }}</td>
                                 <td>{{ $doctor->user->phone }}</td>
                                 <td>{{ $doctor->user->email }}</td>
-                                
+
                                 <td>{{ $doctor->date_started }}</td>
                                 <td>
                                     <a href="{{ route('admin.doctors.show', $doctor->id) }}" class="btn btn-primary">View</a>

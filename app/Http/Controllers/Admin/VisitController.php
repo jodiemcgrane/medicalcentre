@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2020-12-18T14:12:17+00:00
+# @Last modified time: 2020-12-23T16:44:09+00:00
 
 
 
@@ -88,6 +88,8 @@ class VisitController extends Controller
       $visit->cost = $request->input('cost');
       $visit->save();
 
+      $request->session()->flash('success', 'Visit added successfully.');
+
       return redirect()->route('admin.visits.index');
     }
 
@@ -154,6 +156,8 @@ class VisitController extends Controller
         $visit->cost = $request->input('cost');
         $visit->save();
 
+        $request->session()->flash('info', 'Visit edited successfully.');
+
         return redirect()->route('admin.visits.index');
     }
 
@@ -164,10 +168,12 @@ class VisitController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $visit = Visit::findOrFail($id);
         $visit->delete();
+
+        $request->session()->flash('danger', 'Visit deleted successfully.');
 
         return redirect()->route('admin.visits.index');
     }

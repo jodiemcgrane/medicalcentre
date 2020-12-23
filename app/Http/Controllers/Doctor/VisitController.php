@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2020-12-18T15:02:41+00:00
+# @Last modified time: 2020-12-23T16:45:32+00:00
 
 
 
@@ -98,6 +98,8 @@ class VisitController extends Controller
       //$visit->doctor_id = Auth::id();
       $visit->save();
 
+      $request->session()->flash('success', 'Visit added successfully.');
+
       return redirect()->route('doctor.visits.index');
     }
 
@@ -164,6 +166,8 @@ class VisitController extends Controller
         $visit->cost = $request->input('cost');
         $visit->save();
 
+        $request->session()->flash('info', 'Visit edited successfully.');
+
         return redirect()->route('doctor.visits.index');
     }
 
@@ -178,6 +182,8 @@ class VisitController extends Controller
     {
         $visit = Visit::findOrFail($id);
         $visit->delete();
+
+        $request->session()->flash('danger', 'Visit deleted successfully.');
 
         return redirect()->route('doctor.visits.index');
     }

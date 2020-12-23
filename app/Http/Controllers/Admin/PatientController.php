@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:38:39+00:00
-# @Last modified time: 2020-12-16T10:06:14+00:00
+# @Last modified time: 2020-12-23T16:44:15+00:00
 
 
 
@@ -107,6 +107,8 @@ class PatientController extends Controller
         // $patient->policy_number = $request->input('policy_number');
         // $patient->save();
 
+        $request->session()->flash('success', 'Patient added successfully.');
+
         return redirect()->route('admin.patients.index');
     }
 
@@ -171,12 +173,15 @@ class PatientController extends Controller
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
+      $user->save();
 
       $patient = Patient::findOrFail($id);
       $patient->user_id = $user->id;
       $patient->insurance_id = $request->input('insurance_id');
       $patient->policy_number = $request->input('policy_number');
       $patient->save();
+
+      $request->session()->flash('info', 'Patient edited successfully.');
 
       return redirect()->route('admin.patients.index');
     }
@@ -187,11 +192,13 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     
-    public function destroy($id)
+
+    public function destroy(Request $request, $id)
     {
         $patient = Patient::findOrFail($id);
         $patient->delete();
+
+        $request->session()->flash('danger', 'Patient deleted successfully.');
 
         return redirect()->route('admin.patients.index');
     }

@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-11T14:59:27+00:00
-# @Last modified time: 2020-12-14T18:12:52+00:00
+# @Last modified time: 2020-12-23T16:42:51+00:00
 
 
 
@@ -87,6 +87,8 @@ class DoctorController extends Controller
         $doctor->date_started = $request->input('date_started');
         $doctor->save();
 
+        $request->session()->flash('success', 'Doctor added successfully.');
+
         return redirect()->route('admin.doctors.index');
     }
 
@@ -145,11 +147,14 @@ class DoctorController extends Controller
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
+      $user->save();
 
       $doctor = Doctor::findOrFail($id);
       $doctor->user_id = $user->id;
       $doctor->date_started = $request->input('date_started');
       $doctor->save();
+
+      $request->session()->flash('info', 'Doctor edited successfully.');
 
       return redirect()->route('admin.doctors.index');
     }
@@ -160,10 +165,12 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $doctor = Doctor::findOrFail($id);
         $doctor->delete();
+
+        $request->session()->flash('danger', 'Doctor deleted successfully.');
 
         return redirect()->route('admin.doctors.index');
     }
