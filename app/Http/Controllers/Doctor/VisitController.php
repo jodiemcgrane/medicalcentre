@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2020-12-23T16:45:32+00:00
+# @Last modified time: 2021-01-02T13:23:47+00:00
 
 
 
@@ -178,7 +178,7 @@ class VisitController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $visit = Visit::findOrFail($id);
         $visit->delete();

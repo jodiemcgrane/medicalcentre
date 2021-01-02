@@ -40,7 +40,7 @@
                     <form style="display:inline-block" method="POST" id="delete-form" action="{{ route('admin.doctors.destroy', $doctor->id) }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="form-control btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</a>
+                        <button type="submit" class="form-control btn btn-danger" data-toggle="modal" data-target="#deleteDoctor">Delete</a>
                     </form>
                 </div>
             </div>
@@ -48,23 +48,23 @@
     </div>
 
     <div class="clearfix"></div>
-    <div class="modal fade" id="delete-modal">
+    <div class="modal fade" id="deleteDoctor">
         <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Delete Doctor</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Doctor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you wish to delete {{ $doctor->user->name }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="document.querySelector('#delete-form').submit()">Proceed</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Are you sure?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="document.querySelector('#delete-form').submit()">Proceed</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
         </div>
     </div>
 

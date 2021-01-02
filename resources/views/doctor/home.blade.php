@@ -13,8 +13,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Welcome {{ Auth::user()->name }}.
-                    You are Logged in as a Doctor user. <a href="{{ route('doctor.visits.index') }}"> Visits </a>
+                    <h4>Welcome {{ Auth::user()->name }}.</h4>
+                    <br>
+                    <h5>You are logged in as a <b>Doctor</b> user.</h5>
+                    <br>
+                    <h5>Choose below:</h5>
+                    <br>
+                    <p>View all of your <b>own</b> <a href="{{ route('doctor.visits.index') }}">Visits</a> in the system.</p>
                 </div>
             </div>
         </div>

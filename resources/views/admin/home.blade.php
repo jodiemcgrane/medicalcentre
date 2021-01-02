@@ -13,8 +13,17 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    Welcome {{ Auth::user()->name }}.
-                    You are logged in as an Administrator user.
+                    <h4>Welcome {{ Auth::user()->name }}.</h4>
+                    <br>
+                    <h5>You are logged in as an <b>Administrator</b> user.</h5>
+                    <br>
+                    <h5>Choose below:</h5>
+                    <br>
+                    <p>View all <a href="{{ route('admin.doctors.index') }}">Doctors</a> in the system.</p>
+                    <p>View all <a href="{{ route('admin.patients.index') }}">Patients</a> in the system.</p>
+                    <p>View all <a href="{{ route('admin.visits.index') }}">Visits</a> in the system.</p>
+
+
                 </div>
             </div>
         </div>
