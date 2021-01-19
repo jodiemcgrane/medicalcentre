@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-05T16:37:46+00:00
-# @Last modified time: 2020-11-20T16:08:29+00:00
+# @Last modified time: 2021-01-02T17:37:23+00:00
 
 
 
@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 

@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-19T13:36:25+00:00
-# @Last modified time: 2020-11-19T13:39:19+00:00
+# @Last modified time: 2021-01-18T13:58:19+00:00
 
 
 
@@ -34,5 +34,9 @@ class InsuranceCompanySeeder extends Seeder
         $insurance_company = new InsuranceCompany();
         $insurance_company->name = "HSF Health Plan";
         $insurance_company->save();
+
+        for ($i = 1; $i <= 5; $i++) {
+          $insurance_company = InsuranceCompany::factory()->create();
+        }
     }
 }

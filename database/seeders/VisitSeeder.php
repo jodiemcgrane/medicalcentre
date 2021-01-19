@@ -1,6 +1,6 @@
 <?php
 # @Date:   2021-01-02T14:07:20+00:00
-# @Last modified time: 2021-01-02T14:30:16+00:00
+# @Last modified time: 2021-01-14T10:51:59+00:00
 
 
 
@@ -31,7 +31,7 @@ class VisitSeeder extends Seeder
         $visit = new Visit();
         $visit->patient_id = $patient = 1;
         $visit->doctor_id = $doctor = 3;
-        $visit->date = '2021-01-11';
+        $visit->date = '2021-01-18';
         $visit->time = '15:00:00';
         $visit->duration = '45 minutes';
         $visit->cost = '59.99';

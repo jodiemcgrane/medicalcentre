@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-11T14:59:27+00:00
-# @Last modified time: 2020-12-23T16:42:51+00:00
+# @Last modified time: 2021-01-07T18:37:19+00:00
 
 
 
@@ -51,7 +51,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = Doctor::all();
         return view('admin.doctors.create', [
           'users' => $users
         ]);
@@ -69,7 +69,7 @@ class DoctorController extends Controller
           'name' => 'required|max:191',
           'address' => 'required|max:191',
           'phone' => 'required|numeric|min:7',
-          'email' => 'required|max:191',
+          'email' => 'required|max:191|unique:users,email',
 
           'date_started' => 'required|date_format:Y-m-d',
         ]);
@@ -133,24 +133,25 @@ class DoctorController extends Controller
     public function update(Request $request, $id)
     {
 
+      $doctor = Doctor::findOrFail($id);
+
       $request->validate([
         'name' => 'required|max:191',
         'address' => 'required|max:191',
         'phone' => 'required|numeric|min:7',
-        'email' => 'required|max:191',
+        'email' => 'required|max:191|unique:users,email,' . $doctor->user_id,
 
         'date_started' => 'required|date_format:Y-m-d',
       ]);
 
-      $user = User::findOrFail($id);
+      $user = User::findOrFail($doctor->user_id);
       $user->name = $request->input('name');
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
       $user->save();
 
-      $doctor = Doctor::findOrFail($id);
-      $doctor->user_id = $user->id;
+      //$doctor->user_id = ->id;
       $doctor->date_started = $request->input('date_started');
       $doctor->save();
 

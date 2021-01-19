@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2021-01-02T13:23:47+00:00
+# @Last modified time: 2021-01-03T17:21:47+00:00
 
 
 
@@ -25,7 +25,7 @@ class VisitController extends Controller
   public function __construct()
   {
       $this->middleware('auth');
-      $this->middleware('role:doctor');
+      $this->middleware('role:admin,doctor');
   }
 
     /**

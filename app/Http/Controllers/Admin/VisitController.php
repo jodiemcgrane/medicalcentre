@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:41:38+00:00
-# @Last modified time: 2021-01-02T12:38:17+00:00
+# @Last modified time: 2021-01-14T10:46:53+00:00
 
 
 
@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\Patient;
 use App\Models\Doctor;
+use Auth;
 
 class VisitController extends Controller
 {
@@ -34,7 +35,9 @@ class VisitController extends Controller
      */
     public function index()
     {
-      $visits = Visit::all();
+
+//viewing all visits by date
+      $visits = Visit::all()->sortBy('date');
       //returning index view
       return view('admin.visits.index', [
         //this view will have a visits variable

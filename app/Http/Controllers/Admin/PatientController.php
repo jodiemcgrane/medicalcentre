@@ -1,6 +1,6 @@
 <?php
 # @Date:   2020-11-13T16:38:39+00:00
-# @Last modified time: 2020-12-23T16:44:15+00:00
+# @Last modified time: 2021-01-07T16:10:01+00:00
 
 
 
@@ -158,25 +158,27 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+      $patient = Patient::findOrFail($id);
+
       $request->validate([
           'name' => 'required|max:191',
           'address' => 'required|max:191',
           'phone' => 'required|numeric|min:7',
-          'email' => 'required|max:191',
+          'email' => 'required|max:191|unique:users,email,' . $patient->user_id,
 
           'insurance_id' => 'required',
           'policy_number' => 'required|alpha_num|size:13|unique:patients,policy_number,' . $id,
       ]);
 
-      $user = User::findOrFail($id);
+      $user = User::findOrFail($patient->user_id);
       $user->name = $request->input('name');
       $user->address = $request->input('address');
       $user->phone = $request->input('phone');
       $user->email = $request->input('email');
       $user->save();
 
-      $patient = Patient::findOrFail($id);
-      $patient->user_id = $user->id;
+      //$patient->user_id = $user->id;
       $patient->insurance_id = $request->input('insurance_id');
       $patient->policy_number = $request->input('policy_number');
       $patient->save();

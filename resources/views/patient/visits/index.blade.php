@@ -9,7 +9,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    Visits
+                    {{ Auth::user()->name }}: Visits
                 </div>
 
                 <div class="card-body">
